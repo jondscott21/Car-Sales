@@ -17,27 +17,30 @@ const initialState = {
 }
 
 export const featureReducer = (state = initialState, action) => {
+    let newStore = state.store.filter(item => item !== action.payload)
+    console.log(action.payload)
     switch(action.type) {
         case 'ADD_FEATURES':
             return {
                 ...state, 
                     car: {
+                        ...state.car,
                         price: state.car.price + action.payload.price,
-                        name: '2019 Ford Mustang',
-                        image: 'https://cdn.motor1.com/images/mgl/0AN2V/s1/2019-ford-mustang-bullitt.jpg',
                         features: [...state.car.features, action.payload]
-                    }
+                    },
+                    store: newStore
                
             }
             case 'REMOVE_FEATURES':
+                
                 return {
                     ...state,
                         car: {
-                            price: state.car.price - state.car.features[action.payload].price,
-                            name: '2019 Ford Mustang',
-                            image: 'https://cdn.motor1.com/images/mgl/0AN2V/s1/2019-ford-mustang-bullitt.jpg',
-                            features: state.car.features.filter((feature, index) => index !== action.payload)
-                        }
+                            ...state.car,
+                            price: state.car.price - action.payload.price,
+                            features: state.car.features.filter((feature) => feature.id !== action.payload.id)
+                        },
+                        store: [...newStore, action.payload]
 
                 }
         default: return state

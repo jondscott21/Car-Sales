@@ -1,7 +1,7 @@
 import React from 'react';
-// import { connect } from 'react-redux';
-import { useSelector, useDispatch } from 'react-redux';
-import { addFeature, removeItem } from './actions'
+// import { connect } from 'react-redux'; // HOC import
+import { useSelector, useDispatch } from 'react-redux'; // Hook imports
+// import { addFeature, removeItem } from './actions'
 
 import Header from './components/Header';
 import AddedFeatures from './components/AddedFeatures';
@@ -9,6 +9,8 @@ import AdditionalFeatures from './components/AdditionalFeatures';
 import Total from './components/Total';
 
 const App = (props) => {
+
+  // Hooks for getting and setting items in the store
   const state = useSelector(state => state)
   const dispatch = useDispatch()
  
@@ -18,9 +20,11 @@ const App = (props) => {
   };
 
   const buyItem = item => {
-    dispatch({type: 'ADD_FEATURES', payload: item})
-    // state.addFeature(item)
+      // state.addFeature(item)
+      dispatch({type: 'ADD_FEATURES', payload: item})
   };
+
+  // Switch state to props to change back to HOC
   return (
     <div className="boxes">
       <div className="box">
@@ -35,13 +39,13 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    additionalPrice: state.additionalPrice,
-    car: state.car,
-    store: state.store
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     additionalPrice: state.additionalPrice,
+//     car: state.car,
+//     store: state.store
+//   };
+// };
 
 // export default connect(mapStateToProps, { addFeature, removeItem })(App);
 export default App;
